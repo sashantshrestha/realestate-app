@@ -39,7 +39,7 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
   };
 
   const handleReset = () => {
-    const resetFilters = {
+    const resetFilters: PropertyFilters = {
       status: 'all',
       propertyType: 'all',
       minPrice: undefined,
@@ -60,7 +60,8 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
             <Label className="text-base font-medium">Status</Label>
             <RadioGroup
               value={filters.status || 'all'}
-              onValueChange={(value) => handleChange('status', value)}
+              onValueChange={(value) => 
+                handleChange('status', value as 'for-sale' | 'for-rent' | 'all')}
               className="flex space-x-4 mt-2"
             >
               <div className="flex items-center space-x-2">
@@ -130,14 +131,14 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
             <div>
               <Label htmlFor="bedrooms">Min Bedrooms</Label>
               <Select
-                value={filters.bedrooms?.toString() || ''}
-                onValueChange={(value) => handleChange('bedrooms', value ? Number(value) : undefined)}
+                value={filters.bedrooms?.toString() || 'any'}
+                onValueChange={(value) => handleChange('bedrooms', value === 'any' ? undefined : Number(value))}
               >
                 <SelectTrigger className="mt-2">
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any</SelectItem>
+                  <SelectItem value="any">Any</SelectItem>
                   <SelectItem value="1">1+</SelectItem>
                   <SelectItem value="2">2+</SelectItem>
                   <SelectItem value="3">3+</SelectItem>
@@ -149,14 +150,14 @@ const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
             <div>
               <Label htmlFor="bathrooms">Min Bathrooms</Label>
               <Select
-                value={filters.bathrooms?.toString() || ''}
-                onValueChange={(value) => handleChange('bathrooms', value ? Number(value) : undefined)}
+                value={filters.bathrooms?.toString() || 'any'}
+                onValueChange={(value) => handleChange('bathrooms', value === 'any' ? undefined : Number(value))}
               >
                 <SelectTrigger className="mt-2">
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any</SelectItem>
+                  <SelectItem value="any">Any</SelectItem>
                   <SelectItem value="1">1+</SelectItem>
                   <SelectItem value="2">2+</SelectItem>
                   <SelectItem value="3">3+</SelectItem>
